@@ -44,12 +44,9 @@
 
         <h:form id="productsForm">
             <div class="row py-2">
-                <div class="col-12">
-                    <h:commandButton value="Add Product" styleClass="btn btn-primary" action="#{productController.createProduct()}"/>
-                </div>
 
                 <div class="col-12">
-                    <h:dataTable value="#{productController.getAnyProduct()}" var="product"
+                    <h:dataTable value="#{productBean.getProducts()}" var="product"
                                  styleClass="table table-bordered my-2">
                         <h:column>
                             <f:facet name="header">Id</f:facet>
@@ -66,11 +63,15 @@
                             #{product.cost}
                         </h:column>
 
-                        <h:column>
-                            <f:facet name="header">Actions</f:facet>
-                            <h:commandButton value="Edit" styleClass="btn btn-success"
-                                             action="#{productController.editProduct(product)}"/>
-                        </h:column>
+<!--                        <h:column>-->
+<!--                            <f:facet name="header">Actions</f:facet>-->
+<!--                            <h:commandButton value="Edit" styleClass="btn btn-success"-->
+<!--                                             action="#{productController.editProduct(product)}"/>-->
+<!--                            <h:commandButton value="Delete" styleClass="btn btn-danger"-->
+<!--                                             action="#{productController.deleteProduct(product)}">-->
+<!--                                <f:ajax event="click" render="productsForm"/>-->
+<!--                            </h:commandButton>-->
+<!--                        </h:column>-->
                     </h:dataTable>
                 </div>
             </div>

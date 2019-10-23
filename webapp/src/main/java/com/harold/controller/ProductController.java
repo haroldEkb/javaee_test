@@ -35,6 +35,11 @@ public class ProductController implements Serializable {
         return productRepository.findAll();
     }
 
+    public Product getAnyProduct() throws SQLException {
+        System.out.println(productRepository.findById(1).getTitle());
+        return productRepository.findById(1);
+    }
+
     public String createProduct() {
         this.product = new Product();
         return "/edit_product.xhtml?faces-redirect=true";

@@ -2,14 +2,21 @@ package com.harold.persist;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Named
 @RequestScoped
 public class Product {
+
     private Integer id;
 
+    @NotNull(message = "Поле не должно быть пустым")
     private String title;
 
+    @NotNull(message = "Поле не должно быть пустым")
+    @Min(value = 0,message = "Цена должна быть неотрицательной")
     private Integer cost;
 
     public Product() {

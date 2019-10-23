@@ -32,6 +32,9 @@ public class ProductController implements Serializable {
     }
 
     public List<Product> getAllProducts() throws SQLException {
+        for (Product product1 : productRepository.findAll()) {
+            logger.info(product1.getTitle());
+        }
         return productRepository.findAll();
     }
 

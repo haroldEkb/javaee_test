@@ -14,6 +14,8 @@
 </h:head>
 <h:body>
 
+    <f:event listener="${productController.preloadProductList}" type="preRenderView"/>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Shop</a>
 
@@ -49,7 +51,7 @@
                 </div>
 
                 <div class="col-12">
-                    <h:dataTable value="#{productController.allProducts}" var="product"
+                    <h:dataTable value="#{productController.getAllProducts()}" var="product"
                                  styleClass="table table-bordered my-2">
                         <h:column>
                             <f:facet name="header">Id</f:facet>

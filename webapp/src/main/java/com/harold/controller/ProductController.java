@@ -1,15 +1,15 @@
 package com.harold.controller;
 
-import com.harold.persist.Product;
+import com.harold.entity.Product;
 import com.harold.persist.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 @SessionScoped
@@ -22,6 +22,7 @@ public class ProductController implements Serializable {
     private ProductRepository productRepository;
 
     private Product product;
+    private List<Product> productList;
 
     public Product getProduct() {
         return product;
@@ -31,11 +32,11 @@ public class ProductController implements Serializable {
         this.product = product;
     }
 
-    public List<Product> getAllProducts() throws SQLException {
-        return productRepository.findAll();
+    public List<Product> getAllProducts() {
+        return productList;
     }
 
-    public Product getAnyProduct() throws SQLException {
+    public Product getAnyProduct() {
         System.out.println(productRepository.findById(1).getTitle());
         return productRepository.findById(1);
     }
@@ -45,7 +46,7 @@ public class ProductController implements Serializable {
         return "/edit_product.xhtml?faces-redirect=true";
     }
 
-    public String saveProduct() throws SQLException {
+    public String saveProduct() {
         if (product.getId() == null) {
             productRepository.insert(product);
         } else {
@@ -54,7 +55,7 @@ public class ProductController implements Serializable {
         return "/products.xhtml?faces-redirect=true";
     }
 
-    public void deleteProduct(Product product) throws SQLException {
+    public void deleteProduct(Product product) {
         logger.info("Deleting Product");
         productRepository.delete(product.getId());
     }
@@ -62,5 +63,9 @@ public class ProductController implements Serializable {
     public String editProduct(Product product) {
         this.product = product;
         return "/edit_product.xhtml?faces-redirect=true";
+    }
+
+    public void preloadProductList(ComponentSystemEvent event){
+        this.productList = productRepository.findAll();
     }
 }

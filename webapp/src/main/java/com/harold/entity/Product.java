@@ -18,12 +18,12 @@ public class Product {
     private Integer id;
 
     @NotNull(message = "Поле не должно быть пустым")
-    @Column
+    @Column(name = "title")
     private String title;
 
     @NotNull(message = "Поле не должно быть пустым")
     @Min(value = 0,message = "Цена должна быть неотрицательной")
-    @Column
+    @Column(name = "cost")
     private Integer cost;
 
     public Product() {

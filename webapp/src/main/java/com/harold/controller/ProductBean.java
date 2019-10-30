@@ -1,12 +1,10 @@
 package com.harold.controller;
 
-import com.harold.controller.ProductController;
-import com.harold.persist.Product;
+import com.harold.entity.Product;
 import com.harold.persist.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

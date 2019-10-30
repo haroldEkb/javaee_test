@@ -33,7 +33,7 @@ public class CatalogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.setAttribute("products", repository.findAll());
-        } catch (SQLException e) {
+        } catch (Exception e) {
             logger.error("", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;

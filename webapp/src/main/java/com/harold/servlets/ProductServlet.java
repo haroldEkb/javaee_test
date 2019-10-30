@@ -1,6 +1,5 @@
 package com.harold.servlets;
 
-import com.harold.persist.Product;
 import com.harold.persist.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/product")
 public class ProductServlet extends HttpServlet {
@@ -36,7 +34,7 @@ public class ProductServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         try {
             req.setAttribute("product", repository.findById(id));
-        } catch (SQLException e) {
+        } catch (Exception e) {
             logger.error("", e);
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;

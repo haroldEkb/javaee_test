@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>Product test</title>
+    <title>Cart</title>
 </h:head>
 <h:body>
+
+    <f:event listener="${orderController.preloadOrderList}" type="preRenderView"/>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Shop</a>
@@ -36,42 +38,40 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="orders.xhtml">Orders</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="cart.xhtml">Cart</a>
+                </li>
             </ul>
         </div>
     </nav>
 
     <div class="container">
 
-        <h:form id="productsForm">
+        <h:form id="orderForm">
             <div class="row py-2">
 
                 <div class="col-12">
-                    <h:dataTable value="#{productBean.getProducts()}" var="product"
+                    <h:dataTable value="#{cartController.getAllProducts().entrySet()}" var="entry"
                                  styleClass="table table-bordered my-2">
                         <h:column>
                             <f:facet name="header">Id</f:facet>
-                            #{product.id}
+                            #{entry.getKey().id}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Title</f:facet>
-                            #{product.title}
+                            #{entry.getKey().title}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Cost</f:facet>
-                            #{product.cost}
+                            #{entry.getKey().cost}
                         </h:column>
 
-<!--                        <h:column>-->
-<!--                            <f:facet name="header">Actions</f:facet>-->
-<!--                            <h:commandButton value="Edit" styleClass="btn btn-success"-->
-<!--                                             action="#{productController.editProduct(product)}"/>-->
-<!--                            <h:commandButton value="Delete" styleClass="btn btn-danger"-->
-<!--                                             action="#{productController.deleteProduct(product)}">-->
-<!--                                <f:ajax event="click" render="productsForm"/>-->
-<!--                            </h:commandButton>-->
-<!--                        </h:column>-->
+                        <h:column>
+                            <f:facet name="header">Quantity</f:facet>
+                            #{entry.getValue()}
+                        </h:column>
                     </h:dataTable>
                 </div>
             </div>

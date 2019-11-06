@@ -78,19 +78,38 @@
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.2.Final</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.4.7.Final</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.0.Final</version>
+            <scope>provided</scope>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>javax.ejb</groupId>-->
+<!--            <artifactId>javax.ejb-api</artifactId>-->
+<!--            <version>3.2.2</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.ejb/jboss-ejb-api_3.2_spec -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+            <version>1.0.2.Final</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>mysql</groupId>

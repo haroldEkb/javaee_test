@@ -1,5 +1,6 @@
 package com.harold.persist;
 
+import com.harold.entity.Order;
 import com.harold.entity.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
@@ -59,5 +65,15 @@ public class ProductRepository implements Serializable {
 
     public List<Product> findAll() {
         return entityManager.createQuery("from Product", Product.class).getResultList();
+    }
+
+    public List<Product> findByPriceBetween(Double min, Double max){
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        Predicate predicate = cb.between(root.get("cost"), min, max);
+        criteriaQuery.select(root).where(predicate);
+        TypedQuery<Product> query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
     }
 }

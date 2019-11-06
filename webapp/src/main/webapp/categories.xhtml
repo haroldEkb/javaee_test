@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>Product list</title>
+    <title>Category list</title>
 </h:head>
 <h:body>
+
+    <f:event listener="${categoryController.preloadCategoryList}" type="preRenderView"/>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Shop</a>
@@ -42,25 +44,20 @@
 
     <div class="container">
 
-        <h:form id="productsForm">
+        <h:form id="categoryForm">
             <div class="row py-2">
 
                 <div class="col-12">
-                    <h:dataTable value="#{productController.getAllProducts()}" var="product"
+                    <h:dataTable value="#{categoryController.getAllCategories()}" var="category"
                                  styleClass="table table-bordered my-2">
                         <h:column>
                             <f:facet name="header">Id</f:facet>
-                            #{product.id}
+                            #{category.id}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Title</f:facet>
-                            #{product.title}
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">Cost</f:facet>
-                            #{product.cost}
+                            #{category.title}
                         </h:column>
                     </h:dataTable>
                 </div>

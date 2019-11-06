@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>Product list</title>
+    <title>Order list</title>
 </h:head>
 <h:body>
 
-    <f:event listener="${productController.preloadProductList}" type="preRenderView"/>
+    <f:event listener="${orderController.preloadOrderList}" type="preRenderView"/>
+
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Shop</a>
@@ -44,38 +45,35 @@
 
     <div class="container">
 
-        <h:form id="productsForm">
+        <h:form id="orderForm">
             <div class="row py-2">
-                <div class="col-12">
-                    <h:commandButton value="Add Product" styleClass="btn btn-primary" action="#{productController.createProduct()}"/>
-                </div>
 
                 <div class="col-12">
-                    <h:dataTable value="#{productController.getAllProducts()}" var="product1"
+                    <h:dataTable value="#{orderController.getAllOrders()}" var="order"
                                  styleClass="table table-bordered my-2">
                         <h:column>
                             <f:facet name="header">Id</f:facet>
-                            #{product1.id}
+                            #{order.id}
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Title</f:facet>
-                            #{product1.title}
+                            <f:facet name="header">Price</f:facet>
+                            #{order.price}
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Cost</f:facet>
-                            #{product1.cost}
+                            <f:facet name="header">Created at</f:facet>
+                            #{order.createdAt}
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Actions</f:facet>
-                            <h:commandButton value="Edit" styleClass="btn btn-success"
-                                             action="#{productController.editProduct(product1)}"/>
-                            <h:commandButton value="Delete" styleClass="btn btn-danger"
-                                             action="#{productController.deleteProduct(product1)}">
-                                <f:ajax event="click" render="productsForm"/>
-                            </h:commandButton>
+                            <f:facet name="header">Updated at</f:facet>
+                            #{order.updatedAt}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Status</f:facet>
+                            #{order.status}
                         </h:column>
                     </h:dataTable>
                 </div>

@@ -32,12 +32,12 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            req.setAttribute("products", repository.findAll());
+//            req.setAttribute("products", repository.findAll());
+            req.setAttribute("products", repository.findByPriceBetween(200.0, 700.0));
         } catch (Exception e) {
             logger.error("", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
-
         }
         getServletContext().getRequestDispatcher("/WEB-INF/templates/catalog.jsp").forward(req, resp);
     }

@@ -73,4 +73,18 @@ public class ProductRepository implements Serializable {
         TypedQuery<Product> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
     }
+
+    public Product findByTitle(String title) {
+        return entityManager.find(Product.class, title);
+    }
+
+    public List<Product> findAllByCategoryId(Integer categoryId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        Predicate predicate = cb.equal(root.get("category"), categoryId);
+        criteriaQuery.select(root).where(predicate);
+        TypedQuery<Product> query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
+    }
 }

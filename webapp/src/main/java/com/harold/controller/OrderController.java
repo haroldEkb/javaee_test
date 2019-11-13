@@ -12,8 +12,8 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@SessionScoped
 @Named
+@SessionScoped
 public class OrderController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);

@@ -1,13 +1,12 @@
 package com.harold.persist;
 
-import com.harold.entity.Order;
 import com.harold.entity.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -15,12 +14,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class ProductRepository implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(ProductRepository.class);
 
@@ -40,17 +37,17 @@ public class ProductRepository implements Serializable {
         }
     }
 
-    @Transactional
+    @TransactionAttribute
     public void insert(Product product) {
         entityManager.persist(product);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void update(Product product) {
         entityManager.merge(product);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void delete(int id) {
         Product product = findById(id);
 

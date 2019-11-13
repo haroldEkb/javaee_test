@@ -5,19 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-import javax.persistence.Entity;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
 import java.io.Serializable;
 import java.util.List;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class OrderRepository implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(OrderRepository.class);
 
@@ -25,7 +20,6 @@ public class OrderRepository implements Serializable {
     private EntityManager entityManager;
 
     @PostConstruct
-    @Transactional
     public void init() {
         try {
             if (this.findAll().isEmpty()) {
@@ -38,17 +32,17 @@ public class OrderRepository implements Serializable {
         }
     }
 
-    @Transactional
+    @TransactionAttribute
     public void insert(Order order) {
         entityManager.persist(order);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void update(Order order) {
         entityManager.merge(order);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void delete(int id) {
         Order order = findById(id);
 

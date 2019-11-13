@@ -1,7 +1,7 @@
 package com.harold.controller;
 
 import com.harold.entity.Product;
-import com.harold.persist.ProductRepository;
+import com.harold.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,17 +9,19 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.interceptor.Interceptors;
 import java.io.Serializable;
 import java.util.List;
 
-@SessionScoped
 @Named
+@SessionScoped
+@Interceptors({com.harold.util.Logger.class})
 public class ProductController implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @Inject
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     private Product product;
     private List<Product> productList;
@@ -36,11 +38,6 @@ public class ProductController implements Serializable {
         return productList;
     }
 
-    public Product getAnyProduct() {
-        System.out.println(productRepository.findById(1).getTitle());
-        return productRepository.findById(1);
-    }
-
     public String createProduct() {
         this.product = new Product();
         return "/edit_product.xhtml?faces-redirect=true";
@@ -48,16 +45,16 @@ public class ProductController implements Serializable {
 
     public String saveProduct() {
         if (product.getId() == null) {
-            productRepository.insert(product);
+            productService.insert(product);
         } else {
-            productRepository.update(product);
+            productService.update(product);
         }
         return "/products.xhtml?faces-redirect=true";
     }
 
     public void deleteProduct(Product product) {
         logger.info("Deleting Product");
-        productRepository.delete(product.getId());
+        productService.delete(product.getId());
     }
 
     public String editProduct(Product product) {
@@ -66,6 +63,6 @@ public class ProductController implements Serializable {
     }
 
     public void preloadProductList(ComponentSystemEvent event){
-        this.productList = productRepository.findAll();
+        this.productList = productService.findAll();
     }
 }

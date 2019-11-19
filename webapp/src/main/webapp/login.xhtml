@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>Shop application</title>
+    <title>Login Form</title>
 </h:head>
 <h:body>
 
@@ -39,21 +39,29 @@
                 </li>
             </ul>
         </div>
-
-        <h:form class="form-inline my-2 my-lg-0">
-            <h:outputText rendered="#{not empty request.remoteUser}"
-                          value="Current user: #{request.remoteUser} "/>
-
-            <h:commandLink rendered="#{not empty request.remoteUser}"
-                           action="#{userController.logout}"
-                           class="btn btn-outline-success my-2 my-sm-0">Logout</h:commandLink>
-        </h:form>
     </nav>
 
     <div class="container">
         <p>
-            Это главная страница
+            Форма входа в систему
         </p>
+        <div class="row py-2">
+            <div class="col-12">
+                <form action="j_security_check">
+                    <div class="form-group">
+                        <h:outputLabel value="Username" for="j_username"/>
+                        <h:inputText styleClass="formControl" id="j_username" placeholder="Enter username"
+                                     name="j_username" required="true" requiredMessage="Login is required"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Password" for="j_password"/>
+                        <h:inputText styleClass="formControl" id="j_password" placeholder="Enter password"
+                                     name="j_password" required="true" requiredMessage="Password is required"/>
+                    </div>
+                    <input type="submit" value="Login" class="btn btn-primary" formmethod="post"/>
+                </form>
+            </div>
+        </div>
 
     </div>
 

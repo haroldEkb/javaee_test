@@ -27,8 +27,26 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="index.xhtml">Main</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="products.xhtml">Products</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="categories.xhtml">Categories</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="orders.xhtml">Orders</a>
+                </li>
             </ul>
         </div>
+
+        <h:form class="form-inline my-2 my-lg-0">
+            <h:outputText rendered="#{not empty request.remoteUser}"
+                          value="Current user: #{request.remoteUser} "/>
+
+            <h:commandLink rendered="#{not empty request.remoteUser}"
+                           action="#{userController.logout}"
+                           class="btn btn-outline-success my-2 my-sm-0">Logout</h:commandLink>
+        </h:form>
     </nav>
 
     <div class="container">

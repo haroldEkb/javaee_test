@@ -2,6 +2,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
+
 <h:head>
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
@@ -13,36 +14,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
     <title>Shop application</title>
 </h:head>
+
 <h:body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Shop</a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" />
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.xhtml">Main</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="products.xhtml">Products</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="categories.xhtml">Categories</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="orders.xhtml">Orders</a>
-                </li>
-            </ul>
-        </div>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">User form</a>
 
         <h:form class="form-inline my-2 my-lg-0">
             <h:outputText rendered="#{not empty request.remoteUser}"
-                          value="Current user: #{request.remoteUser} "/>
+                          value="Current user: #{request.remoteUser}"/>
 
             <h:commandLink rendered="#{not empty request.remoteUser}"
                            action="#{userController.logout}"
@@ -51,10 +30,28 @@
     </nav>
 
     <div class="container">
-        <p>
-            Это главная страница
-        </p>
+        <h:form id="userForm">
+            <div class="form-group">
+                <h:outputLabel value="User name" for="exampleInputUsername"/>
+                <h:inputText styleClass="form-control" id="exampleInputUsername" placeholder="Enter username"
+                             value="#{userController.user.login}" required="true" requiredMessage="Login is required">
+                    <f:ajax event="blur" render="loginValidationError"/>
+                </h:inputText>
 
+                <h:message id="loginValidationError" for="exampleInputUsername" style="color: red"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="Password" for="exampleInputPassword"/>
+                <h:inputSecret styleClass="form-control" id="exampleInputPassword" placeholder="Password"
+                               value="#{userController.user.password}"/>
+            </div>
+            <div class="form-group">
+                <h:selectManyCheckbox value="#{userController.user.roles}" layout="pageDirection">
+                    <f:selectItems value="#{userController.getAllRoles}"/>
+                </h:selectManyCheckbox>
+            </div>
+            <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{userController.saveUser()}"/>
+        </h:form>
     </div>
 
     <!-- Optional JavaScript -->
@@ -69,4 +66,5 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </h:body>
+
 </html>

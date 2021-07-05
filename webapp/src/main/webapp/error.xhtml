@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>Shop application</title>
+    <title>Login Form</title>
 </h:head>
 <h:body>
 
@@ -37,6 +37,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="orders.xhtml">Orders</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="cart.xhtml">Cart</a>
+                </li>
             </ul>
         </div>
 
@@ -51,10 +54,9 @@
     </nav>
 
     <div class="container">
-        <p>
-            Это главная страница
-        </p>
-
+        <h1>Произошла ошибка</h1>
+        <h:outputText value="Error: ${pageContext.errorData.statusCode} "/>
+        <p><b>Request URI:</b> ${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p>
     </div>
 
     <!-- Optional JavaScript -->
